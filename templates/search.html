@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>车票查询 - 12306火车票助手</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚄 12306火车票助手</h1>
+            <nav>
+                <a href="/">首页</a>
+                <a href="/ui/search">车票查询</a>
+                <a href="/ui/schedule">定时抢票</a>
+                <a href="/ui/my_tickets">我的车票</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="search-container">
+                <h2>车票查询</h2>
+
+                <form id="search-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>出发站</label>
+                            <input type="text" id="from-station" name="from" placeholder="如：北京" required>
+                        </div>
+                        <div class="form-group">
+                            <label>到达站</label>
+                            <input type="text" id="to-station" name="to" placeholder="如：上海" required>
+                        </div>
+                        <div class="form-group">
+                            <label>出发日期</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">查询</button>
+                </form>
+
+                <div id="results" class="results-container">
+                    <!-- 查询结果将显示在这里 -->
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>本项目仅供学习和研究使用，请遵守相关法律法规</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/search.js"></script>
+</body>
+</html>

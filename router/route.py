@@ -1,7 +1,9 @@
 from whole.Flask import app
-from flask import request, make_response
+from flask import request, make_response, render_template
 from program.login import Route as LoginRoute
 from program.search import Route as SearchRoute
+from program.scheduler import Route as SchedulerRoute
+from program.train_schedule import Route as TrainScheduleRoute
 from plugins.get_station import Station
 
 
@@ -18,7 +20,31 @@ def after_request(response):
 
 @app.route('/')
 def index():
-    return 'hello'
+    return render_template('index.html')
+
+
+@app.route('/ui/login')
+def ui_login():
+    """登录页面"""
+    return render_template('login.html')
+
+
+@app.route('/ui/search')
+def ui_search():
+    """车票查询页面"""
+    return render_template('search.html')
+
+
+@app.route('/ui/schedule')
+def ui_schedule():
+    """定时抢票页面"""
+    return render_template('schedule.html')
+
+
+@app.route('/ui/my_tickets')
+def ui_my_tickets():
+    """我的车票页面"""
+    return render_template('index.html')
 
 
 @app.route('/login/<name>', methods=['GET', 'POST'])
@@ -38,6 +64,24 @@ def search():
     :return:
     """
     return SearchRoute().search(request)
+
+
+@app.route('/scheduler', methods=['GET', 'POST'])
+def scheduler():
+    """
+    定时抢票任务管理
+    :return:
+    """
+    return SchedulerRoute().scheduler(request)
+
+
+@app.route('/train_schedule', methods=['GET', 'POST'])
+def train_schedule():
+    """
+    列车时刻表查询
+    :return:
+    """
+    return TrainScheduleRoute().schedule(request)
 
 
 @app.route('/update_station', methods=['GET', 'POST'])
