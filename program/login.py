@@ -1,4 +1,4 @@
-from plugins.login import Login, Owner
+from plugins.login import Login, Owner, AccountLogin
 
 
 class Route:
@@ -6,6 +6,8 @@ class Route:
     def login(name, request, make_response):
         if name == '12306':
             return Login.route(request, make_response)
+        elif name == 'account':
+            return AccountLogin.route(request, make_response)
         elif name == 'owner':
             verify = Owner(request).login()
             if verify['code'] == '0':

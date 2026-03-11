@@ -158,12 +158,64 @@ class Owner:
                 login_info = {
                     'token': get_random_str(36)
                 }
-                DB('name').update('update user set token=? where user_id=?', (login_info['token'], user_id))
+                DB(name).update('update user set token=? where user_id=?', (login_info['token'], user_id))
                 return {'code': '0', 'msg': '登录成功', 'login_info': login_info}
             else:
                 return {'code': '-1', 'msg': '用户名或密码错误'}
         else:
             return {'code': '-1', 'msg': '参数不正确'}
+
+
+class AccountLogin:
+    """12306账号密码登录"""
+    def __init__(self):
+        self._headers = {
+            'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                          "Chrome/123.0.0.0 Safari/537.36",
+            'Referer': 'https://kyfw.12306.cn/otn/resources/login.html',
+            'Origin': 'https://kyfw.12306.cn',
+            'Host': 'kyfw.12306.cn'
+        }
+        self.requests = None
+
+    @staticmethod
+    def route(request, make_response):
+        """处理账号密码登录请求"""
+        if request.method == 'POST' and request.headers.get('Content-Type') == 'application/json':
+            data = request.get_json()
+            username = data.get('username')
+            password = data.get('password')
+
+            if username and password:
+                result = AccountLogin().login(username, password)
+                response = make_response(result, '200')
+                response.headers['Content-Type'] = 'application/json;charset=utf-8'
+                return response
+            else:
+                response = make_response({'code': '-1', 'msg': '用户名或密码不能为空'}, '200')
+                response.headers['Content-Type'] = 'application/json;charset=utf-8'
+                return response
+        else:
+            response = make_response({'code': '-1', 'msg': '请求方式或参数不正确'}, '200')
+            response.headers['Content-Type'] = 'application/json;charset=utf-8'
+            return response
+
+    def login(self, username, password):
+        """
+        账号密码登录12306
+        :param username: 用户名
+        :param password: 密码
+        :return: 登录结果
+        """
+        self.requests = requests.session()
+
+        # 账号密码登录暂未完全实现，12306目前主要使用扫码登录
+        # 这里提供基础框架，可以根据实际需求扩展
+        return {
+            'code': '-1',
+            'msg': '12306账号密码登录功能开发中，请使用扫码登录',
+            'tip': '由于12306官方主要推广扫码登录，账号密码登录接口可能需要额外的验证码处理'
+        }
 
 # print(Login().check_login())
 # pdata = {rint(Login().get_picture_base64())

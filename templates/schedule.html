@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定时抢票 - 12306火车票助手</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚄 12306火车票助手</h1>
+            <nav>
+                <a href="/">首页</a>
+                <a href="/ui/search">车票查询</a>
+                <a href="/ui/schedule">定时抢票</a>
+                <a href="/ui/my_tickets">我的车票</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="schedule-container">
+                <h2>定时抢票任务管理</h2>
+
+                <div class="add-job-section">
+                    <h3>添加抢票任务</h3>
+                    <form id="add-job-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>任务ID</label>
+                                <input type="text" id="job-id" name="job_id" placeholder="唯一任务标识" required>
+                            </div>
+                            <div class="form-group">
+                                <label>出发站代码</label>
+                                <input type="text" id="begin" name="begin" placeholder="如：BJP" required>
+                            </div>
+                            <div class="form-group">
+                                <label>到达站代码</label>
+                                <input type="text" id="end" name="end" placeholder="如：SHH" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>出发日期</label>
+                                <input type="date" id="date" name="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label>车次号</label>
+                                <input type="text" id="train-no" name="train_no" placeholder="如：G1" required>
+                            </div>
+                            <div class="form-group">
+                                <label>检查间隔(秒)</label>
+                                <input type="number" id="interval" name="interval" value="60" min="10" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn">添加任务</button>
+                    </form>
+                </div>
+
+                <div class="jobs-list-section">
+                    <h3>当前任务列表</h3>
+                    <button onclick="loadJobs()" class="btn btn-small">刷新</button>
+                    <div id="jobs-list" class="jobs-container">
+                        <!-- 任务列表将显示在这里 -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>本项目仅供学习和研究使用，请遵守相关法律法规</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/schedule.js"></script>
+</body>
+</html>
